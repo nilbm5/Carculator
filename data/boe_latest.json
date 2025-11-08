@@ -1,0 +1,78 @@
+{
+  "year": 2025,
+  "source": "BOE precios medios de venta (placeholder minimal)",
+  "makes": {
+    "Audi": {
+      "A1": {
+        "2015": {
+          "pmv": 12000
+        },
+        "2016": {
+          "pmv": 13000
+        }
+      }
+    }
+  },
+  "coefficients": [
+    {
+      "min_months": 0,
+      "max_months": 12,
+      "factor": 1.0
+    },
+    {
+      "min_months": 13,
+      "max_months": 24,
+      "factor": 0.84
+    },
+    {
+      "min_months": 25,
+      "max_months": 36,
+      "factor": 0.67
+    },
+    {
+      "min_months": 37,
+      "max_months": 48,
+      "factor": 0.56
+    },
+    {
+      "min_months": 49,
+      "max_months": 60,
+      "factor": 0.47
+    },
+    {
+      "min_months": 61,
+      "max_months": 72,
+      "factor": 0.39
+    },
+    {
+      "min_months": 73,
+      "max_months": 84,
+      "factor": 0.34
+    },
+    {
+      "min_months": 85,
+      "max_months": 96,
+      "factor": 0.28
+    },
+    {
+      "min_months": 97,
+      "max_months": 108,
+      "factor": 0.24
+    },
+    {
+      "min_months": 109,
+      "max_months": 120,
+      "factor": 0.19
+    },
+    {
+      "min_months": 121,
+      "max_months": 132,
+      "factor": 0.17
+    },
+    {
+      "min_months": 133,
+      "max_months": 1000,
+      "factor": 0.1
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "currency": "EUR",
+  "brackets": [
+    {
+      "max_cvf": 8.0,
+      "amount": 25.24
+    },
+    {
+      "max_cvf": 11.99,
+      "amount": 68.16
+    },
+    {
+      "max_cvf": 15.99,
+      "amount": 143.88
+    },
+    {
+      "max_cvf": 19.99,
+      "amount": 179.22
+    },
+    {
+      "max_cvf": 999.0,
+      "amount": 224.0
+    }
+  ],
+  "notes": "Tarifas aproximadas usadas como referencia Martorell. Actualizar si el ayuntamiento cambia importes."
+}
