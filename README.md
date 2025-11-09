@@ -1,32 +1,28 @@
-# UK→ES Import Calculator
+# UK→ES Import Calculator (con fallback scrapers)
 
-Gratis, desplegable en Vercel. Frontend Next.js + API routes.  
-- DVLA/DVSA (requiere tus API keys gratuitas).
-- Valor venal BOE (tablas en `/data/boe_latest.json`, con auto-actualización por GitHub Action).
-- IVTM Martorell por tramos.
-- Cálculo de aduanas 33% + tasas fijas configurables.
-- Conversión millas→km, historial local, exportar PDF/CSV.
+- Frontend Next.js + Tailwind
+- API routes: DVLA/DVSA (con keys) y **fallback scrapers** si no hay keys
+- Valor venal BOE (auto-actualización con GitHub Action)
+- IVTM Martorell, aduanas 33%, tasas fijas
+- Exportar PDF/CSV, historial local, conversión millas→km
 
-## Despliegue rápido (Vercel)
-1. Haz fork o sube este repo a GitHub.
-2. Pulsa "New Project" en Vercel y selecciona el repo.
-3. Variables de entorno (Project Settings → Environment Variables):
-   - `DVLA_API_KEY`
-   - `DVSA_API_KEY`
-4. Deploy.
+## Variables de entorno (Vercel → Project Settings → Environment Variables)
+- `DVLA_API_KEY` (opcional si usas scrapers)
+- `DVSA_API_KEY` (opcional si usas scrapers)
 
-Opcional: GitHub Action actualizará automáticamente `data/boe_latest.json` cada mes.
-
-## Desarrollo local
-```bash
-npm install
-npm run dev
-```
+Si faltan, el frontend intenta automáticamente los endpoints de scraping.
 
 ## Endpoints
-- `GET /api/vehicle?plate=AB12CDE`
-- `GET /api/mot?plate=AB12CDE`
-- `GET /api/fx` (tipo GBP→EUR vía ECB)
-- `POST /api/quote` (JSON con entradas; devuelve desglose)
-- `GET /api/venal/boe?make=Audi&model=A1&year=2015`
-- `POST /api/boe/refresh` (opcional, recarga BOE en caliente; no persiste)
+- `GET /api/vehicle?plate=...` (DVLA)
+- `GET /api/mot?plate=...` (DVSA)
+- `GET /api/vehicle_scrape?plate=...` (fallback)
+- `GET /api/mot_scrape?plate=...` (fallback)
+- `GET /api/fx` (ECB)
+- `GET /api/venal/boe?make=...&model=...&firstReg=YYYY-MM-DD`
+- `POST /api/quote`
+
+## Despliegue
+1. Sube a GitHub
+2. Importa en Vercel
+3. (Opcional) añade API keys
+4. Deploy
