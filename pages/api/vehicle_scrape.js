@@ -1,4 +1,4 @@
-// Fallback scraper to extract make/model/year/cc/fuel from public MOT page
+// Fallback: extract basic vehicle info from public MOT page
 import cheerio from 'cheerio'
 
 export default async function handler(req, res) {
@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   if (!plate) return res.status(400).json({ error: 'plate required' })
   try {
     const url = 'https://www.check-mot.service.gov.uk/vehicle/' + encodeURIComponent(plate)
-    const r = await fetch(url, { headers: { 'User-Agent': 'UK2ESCalc/1.0 (+contact)' } })
+    const r = await fetch(url, { headers: { 'User-Agent': 'carculator/1.0 (+contact)' } })
     if (!r.ok) return res.status(502).json({ error: 'Failed to fetch MOT public page', status: r.status })
     const html = await r.text()
     const $ = cheerio.load(html)
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
       } else if (label.includes('fuel')) fuelType = fuelType || val
     })
 
-    // fallback rough search
+    // rough fallback
     if (!make || !model) {
       const body = $('body').text()
       const mm = body.match(/Make[\s:]+([A-Za-z0-9 \-]{2,40})/i)

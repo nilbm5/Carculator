@@ -1,9 +1,8 @@
-// Simplificado: busca la última orden del BOE y actualiza el campo 'year' y 'source'.
-// Mejora: parsear tablas reales.
+// Simplified updater: finds latest BOE order link and bumps metadata.
 const fs = require('fs'); const path = require('path'); const cheerio = require('cheerio');
 
 async function fetchHtml(url){
-  const res = await fetch(url, { headers: { 'User-Agent': 'UK2ESCalc/1.0' }});
+  const res = await fetch(url, { headers: { 'User-Agent': 'carculator/1.0' }});
   if(!res.ok) throw new Error('HTTP '+res.status);
   return await res.text();
 }
@@ -12,8 +11,7 @@ async function main(){
   const searchUrl = 'https://www.boe.es/buscar/boe.php?campo%5B0%5D=SUMARIO&q=precios%20medios%20de%20venta%20veh%C3%ADculos&sort=fecha_des&pg=1';
   const html = await fetchHtml(searchUrl);
   const $ = cheerio.load(html);
-  const first = $('article.resultado-busqueda .resultado-busqueda-enlace a').first();
-  const href = first.attr('href');
+  const href = $('article.resultado-busqueda .resultado-busqueda-enlace a').first().attr('href');
   if(!href) return console.log('No result found');
   const full = new URL(href, 'https://www.boe.es').toString();
   const doc = await fetchHtml(full);
@@ -27,5 +25,4 @@ async function main(){
   fs.writeFileSync(dataPath, JSON.stringify(updated, null, 2));
   console.log('Updated', dataPath, '→ year', year);
 }
-
 main().catch(e=>{ console.error(e); process.exit(0); });
